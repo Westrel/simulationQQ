@@ -34,3 +34,5 @@ def vali(info, string):
             return False, "密码为6-14位, 由数字、字母和下划线组成, 6-14位"
     else:
         return False, "Error!"
+    
+    return 

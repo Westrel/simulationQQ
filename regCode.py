@@ -26,6 +26,8 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
         self.nickName_text.returnPressed.connect(lambda :self.val(self.nickName_text))
         self.pwd1_text.returnPressed.connect(lambda :self.val(self.pwd1_text))
         self.pwd2_text.returnPressed.connect(lambda :self.val(self.pwd2_text))
+        self.birthPlace_text.returnPressed.connect(lambda :self.val(self.birthPlace_text))
+        self.livingPlace_text.returnPressed.connect(lambda :self.val(self.livingPlace_text))
 
 
     def val(self, s):
@@ -50,6 +52,8 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
                 self.pwd1_text.setFocus()
             elif s==self.pwd1_text:
                 self.pwd2_text.setFocus()
+            elif s==self.birthPlace_text:
+                self.livingPlace_text.setFocus()
             else:
                 pass
         else: 

@@ -31,7 +31,14 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
         self.login_btn.clicked.connect(self.logIn)
         self.userName_text.textEdited.connect(lambda : self.pwd_text.setText(""))
         self.autoLog_cbx.stateChanged.connect(self.changeCbxState)
+        self.reg_btn.clicked.connect(self.reg)
 
+
+    def reg(self):
+        import regCode
+        reg = regCode.regWindow()
+        reg.show()
+        return
 
     def changeCbxState(self):
         if self.autoLog_cbx.isChecked():
