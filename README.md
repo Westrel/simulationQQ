@@ -7,3 +7,4 @@
 
 打包 pyinstaller -D -w xxx.py, 如果用这个打包的话要把./ui, ./config, ./users, ./util四个目录拷到打包后的./dist/xxx目录下, 不然跑不起来
 
+[文档结构](./construction.md)
