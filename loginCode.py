@@ -1,6 +1,7 @@
 # coding: utf-8
 # For log in
 # Coding time 2020.02.03
+# Coding by Westrel
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QLineEdit, QMessageBox
@@ -11,7 +12,8 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
     def __init__(self):
         super(loginWindow, self).__init__()
         self.initUi()
-
+        return 
+        
 
     def initUi(self):
         self.setupUi(self)
@@ -30,10 +32,12 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
         self.userName_text.textEdited.connect(lambda : self.pwd_text.setText(""))
         self.autoLog_cbx.stateChanged.connect(self.changeCbxState)
 
+
     def changeCbxState(self):
         if self.autoLog_cbx.isChecked():
             self.remenber_cbx.setCheckState(QtCore.Qt.Checked) 
         return 
+
 
     def unPressed(self):
         '''
