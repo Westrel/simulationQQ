@@ -129,3 +129,4 @@ if __name__=="__main__":
     ui = regWindow()
     ui.show()
     sys.exit(app.exec_())
+    

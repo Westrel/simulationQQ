@@ -171,7 +171,6 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
 
 
 
-
 if __name__=="__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
