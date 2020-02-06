@@ -80,7 +80,7 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
             self.pwd_text.setText("")
         else:
             from xml.etree import ElementTree as ET
-            users_list = ET.parse("./users/all/users_list.xml")
+            users_list = ET.parse("./users/local_user/users_list.xml")
             users = users_list.getroot()
             if autoLog_state:
                 users.remove(users.find("auto_log"))
@@ -104,7 +104,7 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
                         u.append(elem)
                         ET.dump(users)
                         break
-            saveXML(users, "./users/all/users_list.xml")
+            saveXML(users, "./users/local_user/users_list.xml")
         pass # 此处添加跳转代码
         return 
 
@@ -122,7 +122,7 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
         '''
 
         from xml.etree import ElementTree as ET
-        users_list = ET.parse("./users/all/users_list.xml")
+        users_list = ET.parse("./users/local_user/users_list.xml")
         users = users_list.getroot().findall("user")
         auto_log_num = users_list.getroot().findtext("auto_log")
         if num is not None:
@@ -161,7 +161,7 @@ class loginWindow(QtWidgets.QMainWindow, Ui_Login):
         if pwd=="":
             return False, "请输入密码"
         from xml.etree import ElementTree as ET
-        users_list = ET.parse("./users/all/users_list.xml")
+        users_list = ET.parse("./users/local_user/users_list.xml")
         users = users_list.getroot().findall("user")
         for user in users:
             if user.find("num").text==num:

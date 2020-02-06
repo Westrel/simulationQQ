@@ -1,6 +1,6 @@
 # coding: utf-8
 # For regist a account
-# Coding time 2020.02.05
+# Coding time 2020.02.06
 # Coding by Westrel
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -29,13 +29,15 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
         self.pwd2_text.returnPressed.connect(lambda :self.val(self.pwd2_text))
         self.male_rb.clicked.connect(self.year.setFocus)
         self.female_rb.clicked.connect(self.year.setFocus)
+        self.email_text.returnPressed.connect(lambda :self.val(self.email_text))
         self.birthPlace_text.returnPressed.connect(lambda :self.val(self.birthPlace_text))
         self.livingPlace_text.returnPressed.connect(self.reg_btn.setFocus)
         self.year.editingFinished.connect(self.month.setFocus)
         self.month.editingFinished.connect(self.day.setFocus)
-        self.day.editingFinished.connect(self.birthPlace_text.setFocus)
+        self.day.editingFinished.connect(self.email_text.setFocus)
         self.year.valueChanged.connect(lambda :self.val("date"))
         self.month.valueChanged.connect(lambda :self.val("date"))
+        # self.email_text.editingFinished.connect(lambda :self.val(self.email_text))
         self.reg_btn.clicked.connect(self.reg)
 
 
@@ -62,6 +64,10 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
                 result = True, "时间校验无误"
             else:
                 result = False, "请核查时间!"
+        elif s==self.email_text:
+            result = vali("email", self.email_text.text())
+        else:
+            result = True, ""
         if result[0]:
             self.comment_text.setTextColor(QColor(0, 0, 0))
             if s==self.nickName_text:
@@ -70,6 +76,8 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
                 self.pwd2_text.setFocus()
             elif s==self.pwd2_text:
                 self.year.setFocus()
+            elif s==self.email_text:
+                self.birthPlace_text.setFocus()
             elif s==self.birthPlace_text:
                 self.livingPlace_text.setFocus()
             else:
@@ -77,19 +85,43 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
         else: 
             self.comment_text.setTextColor(QColor(255, 0, 0))
         self.comment_text.setPlainText(result[1])
-        return True, ""
+        return result
 
 
     def reg(self):
         mes = "注册提示\n"
         if not self.val(self.nickName_text)[0]:
-            pass
+            self.nickName_text.setFocus()
+            mes += self.val(self.nickName_text)[1]
         elif not self.val(self.pwd1_text)[0]:
-            pass
+            self.pwd1_text.setFocus()
+            mes += self.val(self.pwd1_text)[1]
         elif not self.val(self.pwd2_text)[0]:
-            pass
+            self.pwd2_text.setFocus()
+            mes += self.val(self.pwd2_text)[1]
+        elif not self.val(self.email_text)[0]:
+            self.email_text.setFocus()
+            mes += self.val(self.email_text)[1]
         else:
+            gender = "male"
+            if self.female_rb.isChecked():
+                gender = "female"
+            apply = {"nick": self.nickName_text.text(),
+            "pwd": self.pwd1_text.text(),
+            "gender": gender,
+            "birthday": ""+self.year.value()+"."+self.month.value()+"."+self.day.value(),
+            "email": self.email_text.text(),
+            "birthplace": self.birthPlace_text.text(),
+            "livingplace": self.livingPlace_text.text()
+            }
             QMessageBox.about(self, "提示", "注册成功!")
+            # pass
+        self.comment_text.setTextColor(QColor(255, 0, 0))
+        self.comment_text.setPlainText(mes)
+        return 
+
+    
+    def writeIntoFile(self):
 
 if __name__=="__main__":
     import sys

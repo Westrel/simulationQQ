@@ -4,9 +4,14 @@
    - /ui                     // 存放ui源文件和.py文件
    - /util                   // 存放工具函数
    - /config              // 系统配置文件
-   - /users               // 用户信息, 是后期服务器承载的信息
-      - /all                       // 存放所有用户信息
-         - user_list.xml            // 所有账号和密码(后期可能要对密码进行加密)以及自动登录信息
+   - /server              // 客户端代码及数据
+      - /all_users_detail            // 存放用户信息
+         - /all                            // 所有用户统计信息
+         - /xxx-xxx                        // 每100个用户为1个目录
+            - /xxx                              // 结构同/users/xxx
+   - /users               // 用户信息, ./all/all_users_detail是后期服务器承载的信息
+      - /local_user                  // 存放本地用户信息
+         - user_list.xml               // 所有账号和密码(后期可能要对密码进行加密)以及自动登录信息
       - /xxx                     // 存放所有本地用户信息
          - personal.ini             // 个人信息
          - friends.ini                // 好友信息

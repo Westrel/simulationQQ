@@ -1,6 +1,6 @@
 # coding: utf-8
 # 操作users目录的函数集合
-# Coding time 2020.02.05
+# Coding time 2020.02.06
 # Coding by Westrel
 
 import re
@@ -13,10 +13,12 @@ def vali(info, string):
                 "nick" : 用户名
                 "pwd"  : 密码
                 "date" : 日期
+                "email": 邮箱
             string
                 info="nick" : str
                 info="pwd"  : str
                 info="date" : (year, month)
+                info="email": str
         Return:
             True, "": 合规
             True, "int": 当月有多少天
@@ -38,6 +40,7 @@ def vali(info, string):
         else:
             return False, "密码为6-14位, 由数字、字母和下划线组成, 6-14位"
     elif info=="date":
+        # 返回当月有多少日
         year = int(string[0])
         month = str(string[1])
         day = 31
@@ -63,6 +66,13 @@ def vali(info, string):
         else:
             return False, "Date Error!"
         return True, day
+    elif info=="email":
+        # 邮箱形式为name@domin
+        p = r"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$"
+        if re.match(p, string):
+            return True, "邮箱格式正确"
+        else:
+            return False, "请按照正确的邮箱格式填写: name@domin"
     else:
         return False, "Error!"
     

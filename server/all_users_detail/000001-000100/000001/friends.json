@@ -1,0 +1,23 @@
+{
+
+	"Groups" : {
+
+​		"0" : {"groupName" : "我的好友", "allNum" : 1},
+
+​		"1" : {
+
+​				"nickName" : "test",
+
+​				"account" : "000002",
+
+​				"inWhichGroup" : "我的好友",
+
+​				"comment" : "这个是2",
+
+​				"shield" : false, 
+
+​			}
+
+​	}
+
+}
