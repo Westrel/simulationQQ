@@ -21,13 +21,22 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
         self.setupUi(self)
         self.pwd1_text.setEchoMode(QLineEdit.Password)
         self.pwd2_text.setEchoMode(QLineEdit.Password)
+        self.year.setValue(2000)
 
         self.cancel_btn.clicked.connect(sys.exit)
         self.nickName_text.returnPressed.connect(lambda :self.val(self.nickName_text))
         self.pwd1_text.returnPressed.connect(lambda :self.val(self.pwd1_text))
         self.pwd2_text.returnPressed.connect(lambda :self.val(self.pwd2_text))
+        self.male_rb.clicked.connect(self.year.setFocus)
+        self.female_rb.clicked.connect(self.year.setFocus)
         self.birthPlace_text.returnPressed.connect(lambda :self.val(self.birthPlace_text))
-        self.livingPlace_text.returnPressed.connect(lambda :self.val(self.livingPlace_text))
+        self.livingPlace_text.returnPressed.connect(self.reg_btn.setFocus)
+        self.year.editingFinished.connect(self.month.setFocus)
+        self.month.editingFinished.connect(self.day.setFocus)
+        self.day.editingFinished.connect(self.birthPlace_text.setFocus)
+        self.year.valueChanged.connect(lambda :self.val("date"))
+        self.month.valueChanged.connect(lambda :self.val("date"))
+        self.reg_btn.clicked.connect(self.reg)
 
 
     def val(self, s):
@@ -46,12 +55,21 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
                     result = (False, "两次输入密码不一致")
             else:
                 pass
+        elif s=="date":
+            dayMax = vali("date", (self.year.value(), self.month.value()))
+            if dayMax[0]:
+                self.day.setMaximum(int(dayMax[1]))
+                result = True, "时间校验无误"
+            else:
+                result = False, "请核查时间!"
         if result[0]:
             self.comment_text.setTextColor(QColor(0, 0, 0))
             if s==self.nickName_text:
                 self.pwd1_text.setFocus()
             elif s==self.pwd1_text:
                 self.pwd2_text.setFocus()
+            elif s==self.pwd2_text:
+                self.year.setFocus()
             elif s==self.birthPlace_text:
                 self.livingPlace_text.setFocus()
             else:
@@ -59,9 +77,19 @@ class regWindow(QtWidgets.QMainWindow, Ui_Reg):
         else: 
             self.comment_text.setTextColor(QColor(255, 0, 0))
         self.comment_text.setPlainText(result[1])
-        return
+        return True, ""
 
 
+    def reg(self):
+        mes = "注册提示\n"
+        if not self.val(self.nickName_text)[0]:
+            pass
+        elif not self.val(self.pwd1_text)[0]:
+            pass
+        elif not self.val(self.pwd2_text)[0]:
+            pass
+        else:
+            QMessageBox.about(self, "提示", "注册成功!")
 
 if __name__=="__main__":
     import sys

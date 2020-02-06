@@ -12,9 +12,14 @@ def vali(info, string):
             info:为下列参数之一
                 "nick" : 用户名
                 "pwd"  : 密码
+                "date" : 日期
             string
+                info="nick" : str
+                info="pwd"  : str
+                info="date" : (year, month)
         Return:
             True, "": 合规
+            True, "int": 当月有多少天
             False, str: 不合规及理由
             False, "ERROR": info错误
     '''
@@ -32,7 +37,37 @@ def vali(info, string):
             return True, "密码合规"
         else:
             return False, "密码为6-14位, 由数字、字母和下划线组成, 6-14位"
+    elif info=="date":
+        year = int(string[0])
+        month = str(string[1])
+        day = 31
+        if month in ["1", "3", "5", "7", "8", "10", "12"]:
+            pass
+        elif month in ["4", "6", "9", "11"]:
+            day = 30
+        elif month=="2":
+            day = 28
+            isLeapYear = False
+            if year%4==0:
+                if year%100==0:
+                    if year%400==0:
+                        isLeapYear = True
+                    else:
+                        pass
+                else:
+                    isLeapYear = True
+            else:
+                pass
+            if isLeapYear:
+                day = 29
+        else:
+            return False, "Date Error!"
+        return True, day
     else:
         return False, "Error!"
     
-    return 
+    return
+
+
+if __name__=="__main__":
+    print(vali("date", (1900, 2)))
